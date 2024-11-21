@@ -2,6 +2,7 @@
 @attribute [Authorize]
 @rendermode InteractiveServer
 @inject IDataService data
+@inject NavigationManager navigate
 
 <PageTitle>Задачи</PageTitle>
 
@@ -16,6 +17,9 @@
     }
     else
     {
+        <div class="btn-group m-2">
+            <button class="btn btn-primary" @onclick="AddTask">Новая задача</button>
+        </div>
         <div class="card-group">
             @foreach (var task in tasks)
             {
@@ -40,5 +44,10 @@
     {
         await base.OnInitializedAsync();
         tasks = await data.GetTaskItemsAsync();
+    }
+
+    void AddTask()
+    {
+        navigate.NavigateTo("tasks/add");
     }
 }
